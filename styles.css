@@ -1,0 +1,17 @@
+h1 {
+  text-align: center;
+}
+.container{
+  width: 600px;
+  padding: 0 10px 0 10px;
+  height: 720px;
+  border: 1px solid black;
+  margin: 0 auto;
+  background-color: rgb(231, 231, 231);
+}
+.hours {
+
+}
+.events{
+
+}
