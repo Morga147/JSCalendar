@@ -1,5 +1,4 @@
-jQuery(function(){
-
+$(document).ready(function(){
   function dateHeader(){
     var newDate = new Date();
     var monthsArray = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -22,9 +21,12 @@ jQuery(function(){
   function calendarEvents(event){
     $.each(event, function(key, value){
       var eventName = key;
+      var min = (value.end - value.start);
+      console.log("var min: "+min);
       var start = minutesToHours(value.start);
       var end = minutesToHours(value.end);
-      $(".calendarContainer").append("<div class='newEvent'><h3>"+eventName+"</h3><p>Start: "+start +", End: "+end+"</p></div>");
+      $(".calendarContainer").append("<div class='newEvent' id="+key+"><p><span>"+eventName+"<br/></span>Start: "+start +", End: "+end+"</p></div>");
+      $("#"+key).css("height", min+"px");
     });
   }
 
@@ -47,5 +49,15 @@ jQuery(function(){
   }
 
   calendarEvents(listOfEvents);
+
+  $.ajax({
+    method: 'GET',
+    url: 'https://appcues-interviews.firebaseio.com/calendar/events.json',
+    dataType: 'json',
+    success: function(result, status){
+      console.log("Success!", result, status);
+      calendarEvents(result);
+    }
+  });
 
 })();
