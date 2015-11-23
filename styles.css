@@ -1,7 +1,7 @@
-h1 {
+body {
   text-align: center;
 }
-.calendar_header{
+.calendarHeader{
   width: 600px;
   padding: 0 10px;
   height: 40px;
@@ -9,14 +9,35 @@ h1 {
   margin: 0 auto;
   text-align: center;
 }
-#current_date{
-
+#currentDate{
+  font-size: 1.75em;
 }
-.calendar_container{
+.calendarContainer{
   width: 600px;
   padding: 0 10px;
   height: 720px;
   border: 1px solid black;
   margin: 0 auto;
   background-color: rgb(231, 231, 231);
+  display: inline-block;
+}
+.times{
+  width: 50px;
+  height: 720px;
+  border: 1px solid black;
+  display: inline-block;
+}
+.headerCalWrapper{
+  display: inline-block;
+}
+
+ul,li{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  font-size: .75em;
+}
+.newEvent{
+  border: 1px solid black;
+
 }
