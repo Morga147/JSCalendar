@@ -22,30 +22,23 @@ jQuery(function(){
   function calendarEvents(event){
     $.each(event, function(key, value){
       var eventName = key;
-      var startHour = Math.floor(value.start / 60)+9;
-      var startMin = value.start % 60;
-      var endHour = Math.floor(value.end / 60)+9;
-      var endMin = value.end % 60;
-      console.log("Start: "+startHour+"\nEnd: "+endHour);
-
-      $(".calendarContainer").append("<div class='newEvent'><h3>"+eventName+"</h3><p>Start: "+startHour +":"+ startMin+", End: "+endHour +":"+ endMin+"</p></div>");
+      var start = minutesToHours(value.start);
+      var end = minutesToHours(value.end);
+      $(".calendarContainer").append("<div class='newEvent'><h3>"+eventName+"</h3><p>Start: "+start +", End: "+end+"</p></div>");
     });
   }
-  
+
   function minutesToHours(minutes){
     var hour = Math.floor(minutes / 60) + 9;
     var min = minutes % 60;
-    // convert from 24 to 12 hour clock
-    if(hour >= 13){
+    if(hour >= 13){  // convert from 24 to 12 hour clock
       hour = (hour-12);
-      // Add PM and pad w/ extra 0 if necessary
-      if(min<10){
+      if(min<10){  // Add PM and pad w/ extra 0 if necessary
         min = min+"0PM";
       } else{
         min = min + "PM";
       }
-      // Add AM and pad w/ extra 0 if neccessary
-    } else if (min<10){
+    } else if (min<10){ // Add AM and pad w/ extra 0 if neccessary
       min = min+"0AM";
     } else {
       min = min + "AM";
