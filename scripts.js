@@ -12,22 +12,38 @@ $(document).ready(function(){
   }
   dateHeader();
 
-  var listOfEvents = {
-      event1: {start: 60, end: 120},  // an event from 10am to 11am
-      event2: {start: 100, end: 240}, // an event from 10:40am to 1pm
-      event3: {start: 700, end: 720}  // an event from 8:40pm to 9pm
-  }
-
   function calendarEvents(event){
     $.each(event, function(key, value){
       var eventName = key;
-      var min = (value.end - value.start);
-      console.log("var min: "+min);
+      var minutes = (value.end - value.start);
       var start = minutesToHours(value.start);
       var end = minutesToHours(value.end);
-      $(".calendarContainer").append("<div class='newEvent' id="+key+"><p><span>"+eventName+"<br/></span>Start: "+start +", End: "+end+"</p></div>");
-      $("#"+key).css("height", min+"px");
+      $(".calendarContainer").append("<div class='newEvent clearfix' id="+eventName+"><p><span>"+eventName+"<br/></span>Start: "+start +", End: "+end+"</p></div>");
+      $("#"+eventName).css({"height":minutes+"px", "top":value.start+"px", "left":0, "width":600});
     });
+  }
+
+  function collisions(event1, event2){
+    var start1 = event1.start;
+    var start2 = event2.start;
+    var end1 = event1.end;
+    var end2 = event2.end;
+    // check if event2 starts at or during event1
+    if(start1 <= start2 < end1){
+      return true;
+    // check if event1 and event2 are at the same time
+    } else if(start1 == start2 && end1 == end2){
+      return true;
+    // check if event1 starts at or during event2
+  } else if(start2 <= start1 < end2){
+      return true;
+    } else{
+      return false;
+    }
+  }
+
+  function collisionStyles(){
+
   }
 
   function minutesToHours(minutes){
@@ -47,8 +63,6 @@ $(document).ready(function(){
     }
     return(hour+":"+min);
   }
-
-  calendarEvents(listOfEvents);
 
   $.ajax({
     method: 'GET',
